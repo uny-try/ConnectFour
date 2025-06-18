@@ -7,7 +7,7 @@
     Title="ConnectFour">
 
     <ShellContent
-        Title="Home"
+        Title="Connect Four"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 

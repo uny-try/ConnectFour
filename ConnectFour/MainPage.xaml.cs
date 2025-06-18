@@ -1,23 +1,45 @@
-﻿namespace ConnectFour;
+﻿using Microsoft.Maui.Controls.Shapes;
+
+namespace ConnectFour;
 
 public partial class MainPage : ContentPage
 {
-    int count = 0;
+    const int Rows = 6;
+    const int Columns = 7;
 
     public MainPage()
     {
         InitializeComponent();
+        CreateBoard();
     }
 
-    private void OnCounterClicked(object? sender, EventArgs e)
+    void CreateBoard()
     {
-        count++;
+        BoardGrid.RowDefinitions.Clear();
+        BoardGrid.ColumnDefinitions.Clear();
 
-        if (count == 1)
-            CounterBtn.Text = $"Clicked {count} time";
-        else
-            CounterBtn.Text = $"Clicked {count} times";
+        for (int r = 0; r < Rows; r++)
+            BoardGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(70) });
 
-        SemanticScreenReader.Announce(CounterBtn.Text);
+        for (int c = 0; c < Columns; c++)
+            BoardGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(70) });
+
+        for (int r = 0; r < Rows; r++)
+        {
+            for (int c = 0; c < Columns; c++)
+            {
+                var ellipse = new Ellipse
+                {
+                    Stroke = Colors.White,
+                    StrokeThickness = 2,
+                    Fill = Colors.LightGray,
+                    WidthRequest = 70,
+                    HeightRequest = 70,
+                    HorizontalOptions = LayoutOptions.Center,
+                    VerticalOptions = LayoutOptions.Center
+                };
+                BoardGrid.Add(ellipse, c, r);
+            }
+        }
     }
 }

@@ -2,13 +2,22 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ConnectFour.MainPage">
-    <ScrollView>
+    <VerticalStackLayout>
+        <!-- 列ごとのボタン -->
+        <Grid x:Name="ButtonGrid"
+              ColumnSpacing="5"
+              Padding="20"
+              HorizontalOptions="Center">
+            <!-- ボタンはコードビハインドで追加 -->
+        </Grid>
+        <!-- ボード -->
         <Grid x:Name="BoardGrid"
               RowSpacing="5"
               ColumnSpacing="5"
               Padding="20"
-              BackgroundColor="Navy">
-            <!-- 行と列はコードビハインドで追加します -->
+              BackgroundColor="Navy"
+              HorizontalOptions="Center">
+            <!-- セルはコードビハインドで追加 -->
         </Grid>
-    </ScrollView>
+    </VerticalStackLayout>
 </ContentPage>

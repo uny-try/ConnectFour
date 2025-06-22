@@ -1,23 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ConnectFour.MainPage">
+             xmlns:local="clr-namespace:ConnectFour"
+             x:Class="ConnectFour.MainPage"
+             x:Name="PageRoot"
+             Title="Connect Four"
+             x:DataType="local:GamePageModel">
+
     <VerticalStackLayout>
+        <!-- リセットボタン -->
+        <Button
+            Text="リセット"
+            FontSize="20"
+            Margin="0,10"
+            Command="{Binding ResetCommand}"/>
+
         <!-- 列ごとのボタン -->
-        <Grid x:Name="ButtonGrid"
-              ColumnSpacing="5"
-              Padding="20"
-              HorizontalOptions="Center">
-            <!-- ボタンはコードビハインドで追加 -->
-        </Grid>
+        <CollectionView
+            ItemsSource="{Binding ColumnButtons}"
+            SelectionMode="None"
+            HeightRequest="50">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                                 Span="7"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="local:ColumnButtonModel">
+                    <Button
+                        Text="↓"
+                        FontSize="24"
+                        WidthRequest="70"
+                        HeightRequest="40"
+                        Command="{Binding PlayPieceCommand}"
+                        CommandParameter="{Binding ColumnIndex}"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
         <!-- ボード -->
-        <Grid x:Name="BoardGrid"
-              RowSpacing="5"
-              ColumnSpacing="5"
-              Padding="20"
-              BackgroundColor="Navy"
-              HorizontalOptions="Center">
-            <!-- セルはコードビハインドで追加 -->
-        </Grid>
+        <CollectionView
+            ItemsSource="{Binding BoardColors}"
+            SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                                 Span="7"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="Brush">
+                    <Border Stroke="Transparent"
+                            StrokeThickness="0"
+                            Margin="7"
+                            StrokeShape="RoundRectangle 25">
+                        <Ellipse
+                            Stroke="Transparent"
+                            StrokeThickness="2"
+                            Fill="{Binding .}"
+                            HeightRequest="70"
+                            WidthRequest="70"/>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>

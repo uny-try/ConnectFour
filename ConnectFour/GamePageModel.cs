@@ -11,20 +11,18 @@ public partial class GamePageModel : ObservableObject
 	const int Rows = 6;
 	const int Columns = 7;
 	GameState _gameState;
-
-	public ObservableCollection<Brush> BoardColors { get; } = new ObservableCollection<Brush>();
 	public ObservableCollection<ColumnButtonModel> ColumnButtons { get; }
+	public ObservableCollection<CellViewModel> BoardCells { get; } = new();
 
 	public GamePageModel(GameState gameState)
 	{
 		_gameState = gameState;
 		_gameState.ResetBoard();
 
-		// BoardColorsを白色で初期化
-		BoardColors.Clear();
+		BoardCells.Clear();
 		for (int i = 0; i < Rows * Columns; i++)
 		{
-			BoardColors.Add(new SolidColorBrush(Colors.White));
+			BoardCells.Add(new CellViewModel());
 		}
 
 		ColumnButtons = new ObservableCollection<ColumnButtonModel>(
@@ -61,7 +59,7 @@ public partial class GamePageModel : ObservableObject
 			return;
 		}
 
-		BoardColors[row * Columns + col] = _gameState.PlayerTurn == 1
+		BoardCells[row * Columns + col].Color = _gameState.PlayerTurn == 1
 			? new SolidColorBrush(Colors.Red)
 			: new SolidColorBrush(Colors.Yellow);
 
@@ -78,7 +76,7 @@ public partial class GamePageModel : ObservableObject
 		_gameState.ResetBoard();
 		for (int i = 0; i < Rows * Columns; i++)
 		{
-			BoardColors[i] = new SolidColorBrush(Colors.White);
+			BoardCells[i].Color = new SolidColorBrush(Colors.White);
 		}
 		ErrorMessage = null;
 	}

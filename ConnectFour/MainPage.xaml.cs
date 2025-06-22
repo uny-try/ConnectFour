@@ -16,16 +16,5 @@ public partial class MainPage : ContentPage
         InitializeComponent();
         _viewModel = new GamePageModel(gameState);
         BindingContext = _viewModel;
-
-        _viewModel.PropertyChanged += (s, e) =>
-        {
-            if (e.PropertyName == nameof(_viewModel.ErrorMessage) && !string.IsNullOrEmpty(_viewModel.ErrorMessage))
-            {
-                MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    DisplayAlert("エラー", _viewModel.ErrorMessage, "OK");
-                });
-            }
-        };
     }
 }

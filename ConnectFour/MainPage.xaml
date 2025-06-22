@@ -39,27 +39,26 @@
 
         <!-- ボード -->
         <CollectionView
-            ItemsSource="{Binding BoardColors}"
+            ItemsSource="{Binding BoardCells}"
             SelectionMode="None">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical"
-                                 Span="7"/>
+                <GridItemsLayout Orientation="Vertical" Span="7"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="Brush">
-                    <Border Stroke="Transparent"
-                            StrokeThickness="0"
-                            Margin="7"
-                            StrokeShape="RoundRectangle 25">
+                <DataTemplate x:DataType="local:CellViewModel">
+                    <Border Stroke="Transparent" StrokeThickness="0" Margin="7" StrokeShape="RoundRectangle 25">
                         <Ellipse
                             Stroke="Transparent"
                             StrokeThickness="2"
-                            Fill="{Binding .}"
+                            Fill="{Binding Color}" 
                             HeightRequest="70"
                             WidthRequest="70"/>
                     </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
+        <!-- エラーメッセージ -->
+        <Label Text="{Binding ErrorMessage}" TextColor="Red" />
     </VerticalStackLayout>
 </ContentPage>
